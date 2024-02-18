@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web exam var1</title>
+</head>
+<body>
+    <h1>Список покупок</h1>
+
+    <form action="/create" method="post">
+        <label for="purchase">Введите новую покупку: </label>
+        <input type="text" name="purchase" id="purchase" required />
+        <input type="submit" value="Добавить" />
+    </form>
+
+    <h2>Запланированные</h2>
+    {% for pitem in planned %}
+        {{ pitem.name }}
+        <form action="/buy/{{pitem.id}}" method="post">
+            <input type="submit" name="buy" value="Купить" />
+        </form>
+        <form action="/make_unavailable/{{pitem.id}}" method="post">
+            <input type="submit" name="make_unavailable" value="Нет в наличии" />
+        </form>
+        <br>
+    {% endfor %}
+
+    <h2>Купленные</h2>
+    {% for bitem in bought %}
+        {{ bitem.name }} <br>
+    {% endfor %}
+
+    <h2>Отсутствующие</h2>
+    {% for uitem in unavailable %}
+        {{ uitem.name }} <br>
+    {% endfor %}
+
+    <br>
+    <form action="/delete_all" method="post">
+        <button type="submit">Удалить все покупки</button>
+    </form>
+
+</body>
+</html>
